@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/category.dart';
+import 'package:shop_app/common_widgets/main_button.dart';
 import 'package:shop_app/main.dart';
 
 void main() {
@@ -64,49 +67,27 @@ class SplashScreen extends StatelessWidget {
                           'When placing an order, select the option “Contactless delivery” and the courier will leave your order at the door.',
                           textAlign: TextAlign.center,
                         ),
-                        Container(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text('ORDER NOW'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xff0BCE83),
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                            ),
-                          ),
+                        CustomElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CategoryScreen()));
+                          },
                         ),
-                        TextButton(onPressed: () {}, child: Text('Dismiss', style: TextStyle(color: Colors.black38),))
+                        TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              'Dismiss',
+                              style: TextStyle(color: Colors.black38),
+                            ))
                       ],
                     ),
                   ),
                 ),
               ],
             ),
-          )
-          // Row(
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   mainAxisAlignment: MainAxisAlignment.end,
-          //   children: [
-          //     Positioned(
-          //       top: 50,
-          //       left: 10,
-          //       child: Image.asset(
-          //         "assets/images/logo.png",
-          //       ),
-          //     ),
-          //     Positioned(
-          //       top: 0,
-          //       right: 0,
-          //       height: 50,
-          //       width: 20,
-          //       child:  Image.asset("assets/images/bg.png", fit: BoxFit.fill,),
-          //     ),
-          //   ],
-          // ),
-          ),
+          )),
     );
   }
 }
