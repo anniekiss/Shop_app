@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shop_app/category.dart';
 import 'package:shop_app/common_widgets/main_button.dart';
+import 'package:shop_app/dashboard.dart';
 import 'package:shop_app/main.dart';
 
 void main() {
@@ -72,7 +72,7 @@ class SplashScreen extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => CategoryScreen()));
+                                    builder: (context) => Dashboard()));
                           },
                         ),
                         TextButton(

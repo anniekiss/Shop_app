@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/cate_details.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -8,76 +9,150 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  int _selectedTab = 0;
-
-  _changeTab(index) {
-    setState(() {
-      _selectedTab = index;
-    });
-  }
-
-  final List _pages = [
-    SizedBox(
-      // height: MediaQuery.of(context).size.height,
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Categories',
-              style: TextStyle(
-                  color: Color(0xff2D0C57),
-                  fontSize: 34,
-                  fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                contentPadding: EdgeInsets.all(0),
-                prefixIcon: Icon(Icons.search),
-                hintText: 'Search',
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(45),
-                  borderSide: BorderSide(
-                    color: Color(0xfffD9D0E3),
-                  ),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(45),
-                  borderSide: BorderSide(
-                    color: Color(0xfffD9D0E3),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-    Center(
-      child: Text('Shopping Cart'),
-    ),
-    Center(
-      child: Text('Profile'),
-    )
+  final List<Map<String, dynamic>> categories = [
+    {
+      "image":
+          "https://images.pexels.com/photos/1656663/pexels-photo-1656663.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Vegetables",
+      "count": 43
+    },
+    {
+      "image":
+          "https://images.pexels.com/photos/68525/soap-colorful-color-fruit-68525.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Fruits",
+      "count": 50
+    },
+    {
+      "image":
+          "https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Breads",
+      "count": 23
+    },
+    {
+      "image":
+          "https://images.pexels.com/photos/33239/halloween-candy-chocolates-nuts-sweet.jpg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Sweets",
+      "count": 67
+    },
+    {
+      "image":
+          "https://images.pexels.com/photos/33239/halloween-candy-chocolates-nuts-sweet.jpg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Sweets",
+      "count": 67
+    },
+    {
+      "image":
+          "https://images.pexels.com/photos/33239/halloween-candy-chocolates-nuts-sweet.jpg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Sweets",
+      "count": 67
+    },
+    {
+      "image":
+          "https://images.pexels.com/photos/33239/halloween-candy-chocolates-nuts-sweet.jpg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Sweets",
+      "count": 67
+    },
+    {
+      "image":
+          "https://images.pexels.com/photos/33239/halloween-candy-chocolates-nuts-sweet.jpg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Sweets",
+      "count": 67
+    },
+    {
+      "image":
+          "https://images.pexels.com/photos/33239/halloween-candy-chocolates-nuts-sweet.jpg?auto=compress&cs=tinysrgb&w=600",
+      "title": "Sweets",
+      "count": 67
+    },
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: _pages[_selectedTab],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedTab,
-        onTap: (value) => _changeTab(value),
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.grid_4x4), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
-        ],
+      body: SizedBox(
+        // height: MediaQuery.of(context).size.height,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Categories',
+                style: TextStyle(
+                    color: Color(0xff2D0C57),
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              TextField(
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.all(0),
+                  prefixIcon: const Icon(Icons.search),
+                  hintText: 'Search',
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(45),
+                    borderSide: const BorderSide(
+                      color: Color(0xfffD9D0E3),
+                    ),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(45),
+                    borderSide: const BorderSide(
+                      color: Color(0xfffD9D0E3),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5,
+                child: GridView.builder(
+                  itemCount: categories.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0),
+                  itemBuilder: (BuildContext context, int index) =>
+                      GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CateDetails(
+                          title: categories[index]['title'],
+                        ),
+                      ),
+                    ),
+                    child: Card(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.network(
+                            categories[index]['image'],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 1),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(categories[index]['title']),
+                                Text(categories[index]['count'].toString())
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
