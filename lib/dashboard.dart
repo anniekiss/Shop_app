@@ -34,11 +34,11 @@ class _DashboardState extends State<Dashboard> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedTab,
         onTap: (value) => _changeTab(value),
-        items: [
-          const BottomNavigationBarItem(icon: Icon(Icons.grid_4x4), label: ""),
-          const BottomNavigationBarItem(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.grid_4x4), label: ""),
+          BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart), label: ""),
-          const BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
         ],
       ),
     );
