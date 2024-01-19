@@ -16,19 +16,28 @@ class _CateDetailsState extends State<CateDetails> {
   final List<Item> fruits = [
     Item(
         name: "Boston Luttuce",
-        price: "\$12.3",
-        unit: "piece",
+        price: "12.3",
+        unit: "€ / piece",
         favourite: false,
         image:
             "https://images.pexels.com/photos/68525/soap-colorful-color-fruit-68525.jpeg?auto=compress&cs=tinysrgb&w=600"),
     Item(
         name: "Purple Cauliflower",
-        price: "\$7.3",
-        unit: "kg",
+        price: "7.3",
+        unit: "€ / kg",
+        favourite: false,
+        image:
+            "https://images.pexels.com/photos/68525/soap-colorful-color-fruit-68525.jpeg?auto=compress&cs=tinysrgb&w=600"),
+    Item(
+        name: "Savoy Cabbage",
+        price: "1.45",
+        unit: "€ / kg",
         favourite: false,
         image:
             "https://images.pexels.com/photos/68525/soap-colorful-color-fruit-68525.jpeg?auto=compress&cs=tinysrgb&w=600")
   ];
+
+  List<String> itemSelected = [];
 
   @override
   Widget build(BuildContext context) {
@@ -72,19 +81,47 @@ class _CateDetailsState extends State<CateDetails> {
               height: 20,
             ),
             Wrap(
+              spacing: 10,
               children: [
-                Chip(
+                FilterChip(
                   label: Text('Cabbage and Lettuce (14)'),
                   backgroundColor: Colors.white,
+                  onSelected: (bool value) {
+                    setState(() {
+                      itemSelected.add("Cabbage and Lettuce (14)");
+                    });
+                  },
+                  selected: itemSelected.contains('Cabbage and Lettuce (14)'),
                 ),
-                Chip(
-                  label: Text('Cabbage '),
+                FilterChip(
+                  label: Text('Cabbage'),
+                  onSelected: (bool value) {
+                    setState(() {
+                      itemSelected.add("Cabbage");
+                    });
+                  },
+                  selected: itemSelected.contains('Cabbage'),
                 ),
-                Chip(
+                FilterChip(
                   label: Text('Rice and beans'),
+                  onSelected: (bool value) {
+                    setState(() {
+                      if (itemSelected.contains('Rice and beans')) {
+                        itemSelected.remove("Rice and beans");
+                      } else
+                        itemSelected.add("Rice and beans");
+                    });
+                  },
+                  selected: itemSelected.contains('Rice and beans'),
                 ),
-                Chip(
+                FilterChip(
                   label: Text('Cucumber and tomato'),
+                  onSelected: (bool value) {
+                    setState(() {
+                      itemSelected.add("Cucumber and tomato");
+                    });
+                  },
+                  selected: itemSelected.contains('Cucumber and tomato'),
                 ),
               ],
             ),
@@ -93,16 +130,18 @@ class _CateDetailsState extends State<CateDetails> {
               child: ListView.builder(
                 itemCount: fruits.length,
                 itemBuilder: (context, index) => Container(
-                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10.0),
+                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 20.0),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(25))),
                   child: Row(
                     children: [
-                      SizedBox(
-                        height: 100,
-                        width: 140,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(15.0),
                         child: Image.network(
                           fruits[index].image,
+                          height: 127.0,
+                          width: 177.0,
+                          fit: BoxFit.fill,
                         ),
                       ),
                       SizedBox(
@@ -111,6 +150,7 @@ class _CateDetailsState extends State<CateDetails> {
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               fruits[index].name,
@@ -124,7 +164,13 @@ class _CateDetailsState extends State<CateDetails> {
                               text: TextSpan(
                                 text: fruits[index].price,
                                 children: [
-                                  TextSpan(text: " / ${fruits[index].unit}")
+                                  TextSpan(
+                                      text: "${fruits[index].unit}",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        color: Color(0xff9586A8),
+                                      ))
                                 ],
                                 style: TextStyle(
                                   fontSize: 18,

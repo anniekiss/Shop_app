@@ -35,7 +35,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     topLeft: Radius.circular(25),
                   ),
                 ),
-                Column(
+                child: Column(
                   children: [
                     Text(
                       'Boston Lettuce',
@@ -46,9 +46,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     ),
                     RichText(
                       text: const TextSpan(
-                        text: "1.10",
+                        text: "1.10 ",
                         children: [
-                          TextSpan(text: " / piece"),
+                          TextSpan(text: "  / piece"),
                         ],
                         style: TextStyle(
                           fontSize: 18,
