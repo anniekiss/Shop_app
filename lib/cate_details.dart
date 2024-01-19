@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/common_widgets/main_button.dart';
+import 'package:shop_app/details.dart';
 import 'package:shop_app/models/items.dart';
 
 class CateDetails extends StatefulWidget {
@@ -140,7 +141,13 @@ class _CateDetailsState extends State<CateDetails> {
                                   child: Icon(Icons.favorite),
                                 ),
                                 CustomElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DetailsScreen()));
+                                  },
                                   width: 70,
                                   label: Icon(Icons.shopping_cart),
                                 )
