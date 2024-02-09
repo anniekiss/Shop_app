@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:shop_app/cate_details.dart';
 
@@ -9,6 +11,7 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
+  List<Map<String, dynamic>> categoriesListing = [];
   final List<Map<String, dynamic>> categories = [
     {
       "image":
@@ -65,6 +68,15 @@ class _CategoryScreenState extends State<CategoryScreen> {
       "count": 67
     },
   ];
+
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void initState() {
+    categoriesListing = categories;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,6 +99,24 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 height: 20,
               ),
               TextField(
+                controller: searchController,
+                onChanged: (annie) {
+                  var newValue = categories
+                      .where((element) => element["title"]
+                          .toString()
+                          .toLowerCase()
+                          .contains(annie.toLowerCase()))
+                      .toList();
+                  print(newValue);
+                  setState(() {
+                    if (newValue.isEmpty) {
+                      categoriesListing = categories;
+                    } else {
+                      inspect(newValue);
+                      categoriesListing = newValue;
+                    }
+                  });
+                },
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(0),
                   prefixIcon: const Icon(Icons.search),
@@ -110,41 +140,43 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.5,
-                child: GridView.builder(
-                  itemCount: categories.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 4.0,
-                      mainAxisSpacing: 4.0),
-                  itemBuilder: (BuildContext context, int index) =>
-                      GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CateDetails(
-                          title: categories[index]['title'],
+                child: Expanded(
+                  child: GridView.builder(
+                    itemCount: categoriesListing.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 4.0,
+                        mainAxisSpacing: 4.0),
+                    itemBuilder: (BuildContext context, int index) =>
+                        GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CateDetails(
+                            title: categoriesListing[index]['title'],
+                          ),
                         ),
                       ),
-                    ),
-                    child: Card(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image.network(
-                            categories[index]['image'],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 1),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(categories[index]['title']),
-                                Text(categories[index]['count'].toString())
-                              ],
+                      child: Card(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.network(
+                              categories[index]['image'],
                             ),
-                          ),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 1),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(categories[index]['title']),
+                                  Text(categories[index]['count'].toString())
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

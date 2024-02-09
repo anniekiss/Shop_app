@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/category.dart';
+import 'package:shop_app/checkout.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -19,9 +20,7 @@ class _DashboardState extends State<Dashboard> {
 
   final List _pages = [
     CategoryScreen(),
-    const Center(
-      child: Text('Shopping Cart'),
-    ),
+    CheckoutScreen(),
     const Center(
       child: Text('Profile'),
     )
@@ -36,8 +35,7 @@ class _DashboardState extends State<Dashboard> {
         onTap: (value) => _changeTab(value),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.grid_4x4), label: ""),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: ""),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: ""),
         ],
       ),

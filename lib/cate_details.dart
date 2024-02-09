@@ -15,12 +15,13 @@ class CateDetails extends StatefulWidget {
 class _CateDetailsState extends State<CateDetails> {
   final List<Item> fruits = [
     Item(
-        name: "Boston Luttuce",
-        price: "12.3",
-        unit: "€ / piece",
-        favourite: false,
-        image:
-            "https://images.pexels.com/photos/68525/soap-colorful-color-fruit-68525.jpeg?auto=compress&cs=tinysrgb&w=600"),
+      name: "Boston Luttuce",
+      price: "12.3",
+      unit: "€ / piece",
+      favourite: false,
+      image:
+          "https://images.pexels.com/photos/1656663/pexels-photo-1656663.jpeg?auto=compress&cs=tinysrgb&w=600",
+    ),
     Item(
         name: "Purple Cauliflower",
         price: "7.3",
@@ -34,7 +35,7 @@ class _CateDetailsState extends State<CateDetails> {
         unit: "€ / kg",
         favourite: false,
         image:
-            "https://images.pexels.com/photos/68525/soap-colorful-color-fruit-68525.jpeg?auto=compress&cs=tinysrgb&w=600")
+            "https://images.pexels.com/photos/4198024/pexels-photo-4198024.jpeg?auto=compress&cs=tinysrgb&w=600"),
   ];
 
   List<String> itemSelected = [];
@@ -88,7 +89,10 @@ class _CateDetailsState extends State<CateDetails> {
                   backgroundColor: Colors.white,
                   onSelected: (bool value) {
                     setState(() {
-                      itemSelected.add("Cabbage and Lettuce (14)");
+                      if (itemSelected.contains('Cabbage and Lettuce (14)')) {
+                        itemSelected.remove("Cabbage and Lettuce (14)");
+                      } else
+                        itemSelected.add("Cabbage and Lettuce (14)");
                     });
                   },
                   selected: itemSelected.contains('Cabbage and Lettuce (14)'),
@@ -97,7 +101,10 @@ class _CateDetailsState extends State<CateDetails> {
                   label: Text('Cabbage'),
                   onSelected: (bool value) {
                     setState(() {
-                      itemSelected.add("Cabbage");
+                      if (itemSelected.contains('Cabbage')) {
+                        itemSelected.remove("Cabbage");
+                      } else
+                        itemSelected.add("Cabbage");
                     });
                   },
                   selected: itemSelected.contains('Cabbage'),
@@ -118,7 +125,10 @@ class _CateDetailsState extends State<CateDetails> {
                   label: Text('Cucumber and tomato'),
                   onSelected: (bool value) {
                     setState(() {
-                      itemSelected.add("Cucumber and tomato");
+                      if (itemSelected.contains('Cucumber and tomato')) {
+                        itemSelected.remove("Cucumber and tomato");
+                      } else
+                        itemSelected.add("Cucumber and tomato");
                     });
                   },
                   selected: itemSelected.contains('Cucumber and tomato'),
@@ -191,8 +201,9 @@ class _CateDetailsState extends State<CateDetails> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                DetailsScreen()));
+                                            builder: (context) => DetailsScreen(
+                                                  product: fruits[index],
+                                                )));
                                   },
                                   width: 70,
                                   label: Icon(Icons.shopping_cart),

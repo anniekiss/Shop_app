@@ -54,17 +54,25 @@ class SplashScreen extends StatelessWidget {
                           width: 60,
                           height: 60,
                         ),
-                        Text(
-                          'Non-Contact Deliveries',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Color(0xff2D0C57),
-                              fontSize: 34,
-                              fontWeight: FontWeight.bold),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                          child: Text(
+                            'Non-Contact Deliveries',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Color(0xff2D0C57),
+                                fontSize: 34,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                        Text(
-                          'When placing an order, select the option “Contactless delivery” and the courier will leave your order at the door.',
-                          textAlign: TextAlign.center,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 10.0),
+                          child: Text(
+                            'When placing an order, select the option “Contactless delivery” and the courier will leave your order at the door.',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Color(0xff9586A8)),
+                          ),
                         ),
                         CustomElevatedButton(
                           onPressed: () {
