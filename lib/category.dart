@@ -48,26 +48,26 @@ class _CategoryScreenState extends State<CategoryScreen> {
           "https://images.pexels.com/photos/33239/halloween-candy-chocolates-nuts-sweet.jpg?auto=compress&cs=tinysrgb&w=600",
       "title": "Sweets",
       "count": 67
-    },
-    {
-      "image":
-          "https://images.pexels.com/photos/33239/halloween-candy-chocolates-nuts-sweet.jpg?auto=compress&cs=tinysrgb&w=600",
-      "title": "Sweets",
-      "count": 67
-    },
-    {
-      "image":
-          "https://images.pexels.com/photos/33239/halloween-candy-chocolates-nuts-sweet.jpg?auto=compress&cs=tinysrgb&w=600",
-      "title": "Sweets",
-      "count": 67
-    },
-    {
-      "image":
-          "https://images.pexels.com/photos/33239/halloween-candy-chocolates-nuts-sweet.jpg?auto=compress&cs=tinysrgb&w=600",
-      "title": "Sweets",
-      "count": 67
-    },
+    }
   ];
+
+  void onSearchField(String searchValue) {
+    var newValue = categories
+        .where((element) => element["title"]
+            .toString()
+            .toLowerCase()
+            .contains(searchValue.toLowerCase()))
+        .toList();
+    print(newValue);
+    setState(() {
+      if (newValue.isEmpty) {
+        categoriesListing = categories;
+      } else {
+        inspect(newValue);
+        categoriesListing = newValue;
+      }
+    });
+  }
 
   TextEditingController searchController = TextEditingController();
 
@@ -100,23 +100,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
               TextField(
                 controller: searchController,
-                onChanged: (annie) {
-                  var newValue = categories
-                      .where((element) => element["title"]
-                          .toString()
-                          .toLowerCase()
-                          .contains(annie.toLowerCase()))
-                      .toList();
-                  print(newValue);
-                  setState(() {
-                    if (newValue.isEmpty) {
-                      categoriesListing = categories;
-                    } else {
-                      inspect(newValue);
-                      categoriesListing = newValue;
-                    }
-                  });
-                },
+                onChanged: onSearchField,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(0),
                   prefixIcon: const Icon(Icons.search),
@@ -138,45 +122,43 @@ class _CategoryScreenState extends State<CategoryScreen> {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
-                child: Expanded(
-                  child: GridView.builder(
-                    itemCount: categoriesListing.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 4.0,
-                        mainAxisSpacing: 4.0),
-                    itemBuilder: (BuildContext context, int index) =>
-                        GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CateDetails(
-                            title: categoriesListing[index]['title'],
-                          ),
+              Expanded(
+                child: GridView.builder(
+                  itemCount: categoriesListing.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 4.0,
+                      mainAxisSpacing: 4.0),
+                  itemBuilder: (BuildContext context, int index) =>
+                      GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CateDetails(
+                          title: categoriesListing[index]['title'],
                         ),
                       ),
-                      child: Card(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Image.network(
-                              categories[index]['image'],
+                    ),
+                    child: Card(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.network(
+                            categoriesListing[index]['image'],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 1),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(categoriesListing[index]['title']),
+                                Text(categoriesListing[index]['count']
+                                    .toString())
+                              ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 1),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(categories[index]['title']),
-                                  Text(categories[index]['count'].toString())
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
